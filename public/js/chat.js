@@ -59,7 +59,7 @@ $(document).ready(function() {
 
   chat.selectLanguage();
 
-  // chat.showPrompt();
+  chat.showPrompt();
 
   // chat.dText();
 
