@@ -22,10 +22,8 @@ $(document).ready(function() {
 
     // scroll to the bottom of the page when new messages are added
     chatMethods.scrollToBottom = function(div){
-      // scroll(0, document.getElementById(div).scrollHeight);
       $messages = $('#messages')
-          $messages[0].scrollTop = $messages[0].scrollHeight;
-
+      $messages[0].scrollTop = $messages[0].scrollHeight;
     };
 
     // set the input and output language
@@ -60,8 +58,6 @@ $(document).ready(function() {
   chat.selectLanguage();
 
   chat.showPrompt();
-
-  // chat.dText();
 
 
   // when user submits a message

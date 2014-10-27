@@ -18,6 +18,8 @@ h1, h2 {
 }
 
 nav {
+  position: relative;
+  z-index: 10;
   border-bottom: 1px solid #ccc;  
 }
 
@@ -51,12 +53,11 @@ nav li a:hover {
 }
 
 .chatArea{
-  z-index: -1; /* set z to -1 so it is behind nav */
   position: absolute;
   top: 0;
   height: 100%;
-  padding-bottom: 6rem; /* form at bottom */
-  padding-top: 3.5rem; /* nav at top */
+  padding-bottom: 6rem; 
+  padding-top: 3.5rem; 
 }
 
 #messages {

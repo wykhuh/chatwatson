@@ -7,7 +7,7 @@ var io = require('socket.io')(http);
 var https = require('https');
 var url = require('url');
 var querystring = require('querystring');
-// var config = require('./local.env');
+var config = require('./local.env');
 
 app.use(express.errorHandler());
 app.use(express.urlencoded()); // to support URL-encoded bodies
@@ -24,9 +24,9 @@ var appInfo = JSON.parse(process.env.VCAP_APPLICATION || "{}");
 // TODO: Get application information and use it in your app.
 
 // defaults for dev outside bluemix
-// var service_url = config.service_url;
-// var service_username = config.service_username;
-// var service_password = config.service_password;
+var service_url = config.service_url;
+var service_username = config.service_username;
+var service_password = config.service_password;
 
 // VCAP_SERVICES contains all the credentials of services bound to
 // this application. For details of its content, please refer to
