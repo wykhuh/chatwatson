@@ -104,12 +104,12 @@ app.post('/api/watson', function(req, res){
       io.emit('translate message', {name: req.body.name, text: request_data.translation});
 
       res.end();
-    })
+    });
 
   });
 
   watson_req.on('error', function(e) {
-    return res.render('index', {'error': e.message})
+    return res.render('index', {'error': e.message});
   });
 
   // create the request to Watson
