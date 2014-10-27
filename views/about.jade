@@ -1,0 +1,66 @@
+//- about.jade
+
+extends ./layout.jade
+
+block content
+  div.content
+    h1 Chat with Watson
+    p.
+      A chat app that automatically translates the messages into another language. 
+    
+    h2 How it works
+    p.
+      When users enter the app, they select a language preference. When users send a message,
+      IBM's Watson translates the message into another language based on the user's language preference. 
+      Both the original message and the translated message are displayed.
+    
+    h2 How it works (techy version)
+    p.
+      When a user presses 'Send', the app uses Socket.io to send the  message to all the other users. 
+      The app also sends the message to the Watson Language Translator API via a POST request. Once 
+      the server recieves a response from Watson, the app uses Socket.io to send the translated message
+      to all the users.
+
+    h2 Use cases
+    p.
+      People who don't speak the same language can use the app to communicate with each other. For example,
+      let's say there is an English speaker and a Spanish speaker. Each person 
+      sends messages in their native language, and the other user can read the translated messages.
+      Even though the two users don't know a lick of the other language, the app enables them
+      to chat with each other.
+    p.
+      People who are learning another language can use the app to improve their language skills. For
+      example, let's say there is an English speaker who is learning French and a French speaker who is 
+      learning English. 
+    ul 
+      li 
+        |Users can send messages in their native language and read the translated messages
+        | to learn certain phrases. 
+      li 
+        |Users can send messages in a foreign language and read the translation to check if they 
+        | actually said what they meant to say.
+      li 
+        |Users can read and write  messages in a foreign language. 
+
+    h2 Background
+    p
+      b When: 
+      |This chat app was started at the STEAM Carnival 
+      a(href="http://steamcarnival.com/event/hacker-preview-day/") Hacker Preview Day
+      |  on October 23, 2014. This was a solo project.
+     p
+      b Tech used:
+      |  IBM BlueMix, IBM Watson Language Translator, Socket.io, jQuery, Node/Express, Jade
+    p
+      b Inspiration:
+      |  When I arrived at the IBM-sponsored hackathon, I had no idea what app I was going to make. 
+      |  As soon as the IBM folks mentioned that Watson was one of the free plugins for their PaaS BlueMix, 
+      |  I knew that I wanted to do something with Watson. Because let's face it, Watson is AWESOME.
+    p.
+      After browsing around the various Watson plugins, I decided to use the language translator to
+      make a chat app that would translate messages into another language. As a first-generation 
+      Chinese-American, I know the difficulties of trying to communicate in writing with someone whose
+      native language isn't English. I was bummed Chinese wasn't one of the languages available on Watson,
+      but the idea of a chat app that does automatic translation seemed like a cool idea to persue.
+
+
