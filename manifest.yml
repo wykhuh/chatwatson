@@ -1,0 +1,11 @@
+applications:
+- services:
+  - Machine-Translation-4x
+  disk_quota: 1024M
+  host: chatwatson
+  name: chatwatson
+  command: node app.js
+  path: .
+  domain: mybluemix.net
+  instances: 1
+  memory: 128M
