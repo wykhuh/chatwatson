@@ -16,7 +16,6 @@ $(document).ready(function() {
     // send post request to api, which will then send message to IBM Watson
     chatMethods.sendToServer = function(message){
       var base_url =window.location.origin+'/api/watson';
-      console.log(base_url)
       $.post( base_url, message);
     };
 
