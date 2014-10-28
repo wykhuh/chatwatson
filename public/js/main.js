@@ -22,15 +22,17 @@ $(document).ready(function() {
 
   // when client receives a 'chat' event via sockets, add the message to the DOM
   socket.on('chat message', function(msg){
-    var $messages = $('#messages');
+    if(msg.text){
+      var $messages = $('#messages');
 
-    var $message = $('<li class="original">');
-    var $username = $('<span class="name">');
-    $username.text(msg.name + ': ').appendTo($message);
-    $message.append(msg.text);
-    $messages.append($message);
+      var $message = $('<li class="original">');
+      var $username = $('<span class="name">');
+      $username.text(msg.name + ': ').appendTo($message);
+      $message.append(msg.text);
+      $messages.append($message);
 
-    chat.scrollToBottom('messages');
+      chat.scrollToBottom('messages');
+    }
   });
 
   // when client recieves a 'translate' event via sockets, add the translated 
