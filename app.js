@@ -70,6 +70,10 @@ app.get('/about', function(req, res){
 // Sends the message to IBM Watson API
 app.post('/api/watson', function(req, res){
 
+  if(!req.body.text || !req.body.sid){
+    return;
+  }
+
   var request_data = { 
     'txt': req.body.text,
     'sid': req.body.sid,
