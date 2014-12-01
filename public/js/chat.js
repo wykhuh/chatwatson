@@ -5,27 +5,39 @@ var Chat = function(){
   var $usernameInput = $('.usernameInput');
   var $messageInput = $('.messageInput');
   var $messages = $('.messages');
-  var $loginForm = $('.loginForm');
+  var $loginArea = $('.loginArea');
+  var $chatArea =  $('.chatArea');
 
   var username;
-  var connected = false;
+  // var connected = false;
   var $currentInput = $usernameInput.focus();
 
 
   var username;
   
+
+
   // default translation is english to spanish
   chatMethods.sid = "mt-enus-eses";
 
+  chatMethods.displayArea = function(connected) {
+    // if user is logged in, show chat area
+    if(connected) {
+      $chatArea.css('display', 'block');
+      $loginArea.css('display', 'none');
+    // else show login form
+    } else {
+      $chatArea.css('display', 'none');
+      $loginArea.css('display', 'block');
+    }
+  };
 
-
-  // ask user to input name
-  chatMethods.getUsername = function(){
-     // username = cleanInput($usernameInput.val().trim());
-     username = 'me';
+  //  user enters  username
+  chatMethods.submitUsername = function(){
+     username = cleanInput($usernameInput.val().trim());
+     // username = 'me';
 
      if(username) {
-      // $loginPage.fadeOut();
 
       // Tell the server your username
       socket.emit('add user', username);
@@ -33,8 +45,17 @@ var Chat = function(){
      }
   };
 
-  chatMethods.sendMessage = function() {
+    // set the input and output language
+  chatMethods.selectLanguage = function(){
+    $("#language").change(function(){
+      chatMethods.sid = $(this).val();
+      sendText();
+    });
+  };
 
+
+
+  chatMethods.submitMessage = function() {
     var message =  $messageInput.val();
     console.log('chat send', message, username, chatMethods.sid )
 
@@ -42,7 +63,7 @@ var Chat = function(){
     socket.emit('new message', {text: message, name: username});
 
     // send the message to IBM Watson via POST to api
-    chatMethods.sendToServer({text: message, name: username, sid: chatMethods.sid });
+    // sendToServer({text: message, name: username, sid: chatMethods.sid });
 
     // clears the input field
     $messageInput.val('');
@@ -50,40 +71,31 @@ var Chat = function(){
   };
 
 
-
   // send post request to api, which will then send message to IBM Watson
-  chatMethods.sendToServer = function(message){
+  var sendToServer = function(message){
     console.log('chat send to server', message)
     var base_url =window.location.origin+'/api/watson';
     $.post( base_url, message);
   };
 
-  // scroll to the bottom of the page when new messages are added
-  chatMethods.scrollToBottom = function(div){
-    $messages[0].scrollTop = $messages[0].scrollHeight;
-  };
-
-  // set the input and output language
-  chatMethods.selectLanguage = function(){
-
-    $("#language").change(function(){
-      chatMethods.sid = $(this).val();
-      sendText();
-    });
-  };
-
+  // add message to DOM
   chatMethods.addMessage = function(data, messageType) {
     console.log('chat add', data, messageType);
 
     if(data.text){
-      
       var $message = $('<li class="' + messageType +'">');
-      var $username = $('<span class="name">');
-      $username.text(data.name + ': ').appendTo($message);
+
+      if(data.name){
+        var $username = $('<span class="name">');
+        $username.text(data.name + ': ').appendTo($message);
+      }
+      
       $message.append(data.text);
       $messages.append($message);
-  
-      chatMethods.scrollToBottom('messages');
+
+      // scroll to the bottom of the page when new messages are added
+      $messages[0].scrollTop = $messages[0].scrollHeight;
+
     }
   };
 
@@ -94,7 +106,13 @@ var Chat = function(){
     } else {
       message += "there are " + data.numUsers + " participants";
     }
-    log(message);
+    chatMethods.log(message);
+  };
+
+  // Log a message
+  chatMethods.log = function(message) {
+    console.log('chat log', message)
+    chatMethods.addMessage({text: message}, 'log');
   };
 
   // Prevents input from having injected markup
@@ -113,15 +131,11 @@ var Chat = function(){
     };
 
     var lang = chatMethods.sid.slice(0, 7);
-    $('#send').text(phrases[lang]);
+    $('.submitMessage').text(phrases[lang]);
 
   };
 
-  // Log a message
-  function log (message, options) {
-    var $el = $('<li>').addClass('log').text(message);
-    // chatMethods.addMessage($el, 'log');
-  }
+
 
   return chatMethods;
 };

@@ -56,7 +56,8 @@ console.log('service_password = ' + new Array(service_password.length).join("X")
 
 var auth = 'Basic ' + new Buffer(service_username + ':' + service_password).toString('base64');
 
-// routes
+// routes ===================================
+
 
 app.get('/', function(req, res){
   // res.sendfile('index.html');
@@ -123,13 +124,11 @@ app.post('/api/watson', function(req, res){
 
 });
 
-// chatroom
+// chatroom ===================================
 
 // usernames which are currently connected to the chat
 var usernames = {};
 var numUsers = 0;
-
-
 
 
 io.on('connection', function (socket) {
@@ -146,23 +145,23 @@ io.on('connection', function (socket) {
     });
   });
 
-  // // when the client emits 'add user', this listens and executes
-  // socket.on('add user', function (username) {
-  //   // we store the username in the socket session for this client
-  //   socket.username = username;
-  //   // add the client's username to the global list
-  //   usernames[username] = username;
-  //   ++numUsers;
-  //   addedUser = true;
-  //   socket.emit('login', {
-  //     numUsers: numUsers
-  //   });
-  //   // echo globally (all clients) that a person has connected
-  //   socket.broadcast.emit('user joined', {
-  //     username: socket.username,
-  //     numUsers: numUsers
-  //   });
-  // });
+  // when the client emits 'add user', this listens and executes
+  socket.on('add user', function (username) {
+    // we store the username in the socket session for this client
+    socket.username = username;
+    // add the client's username to the global list
+    usernames[username] = username;
+    ++numUsers;
+    addedUser = true;
+    
+    socket.emit('login', { numUsers: numUsers });
+
+    // echo globally (all clients) that a person has connected
+    socket.broadcast.emit('user joined', {
+      username: socket.username,
+      numUsers: numUsers
+    });
+  });
 
 
 

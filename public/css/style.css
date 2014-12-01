@@ -60,8 +60,6 @@ nav li a:hover {
 
 .loginForm {
 
-
-
 }
 
 
@@ -105,7 +103,7 @@ nav li a:hover {
 }
 
 
-form {
+form.messageForm {
   width: 100%;
   max-width: 90rem;
   bottom: 0;
@@ -129,6 +127,7 @@ form button {
   width: 17%;
   background: #466BB0;
   border: none;
+  outline: none;
   border-radius: 10px;
 }
 
