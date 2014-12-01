@@ -1,0 +1,18 @@
+//- index.jade
+extends ./layout.jade
+
+block content
+  div.content
+    p Chat app that translates your messages into another language. 
+    p Don’t let the language barrier be a barrier to communication.
+    p Translations powered by IBM Watson Machine Translation.
+
+    h2 Instructions
+    ol
+      li Enter in username
+      li Select your language choice
+      li Post your messages
+     
+  script(src='/js/jquery.js')
+  script(src='/js/chat.js')
+  script(src='/js/main.js')

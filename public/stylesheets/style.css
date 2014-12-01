@@ -80,3 +80,9 @@ pre {
 	margin: 0;
 }
 
+.loginForm {
+	background: #00aed1;
+	height: 100%;
+	border: 1px solid red;
+}
+

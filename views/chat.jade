@@ -3,11 +3,15 @@ extends ./layout.jade
 
 block content
   div.content
+    div.loginForm
+      label Username:
+      input.usernameInput(type="text", maxlength="20")
+        
     div.chatArea
-      ul#messages
+      ul.messages
 
       form
-        input#m(type="text", required="true")
+        input.messageInput(type="text", required="true")
         button#send Send
         
         select#language(name='language') 
@@ -19,7 +23,6 @@ block content
           option(value='mt-ptbr-enus' selected=sid=='mt-ptbr-enus') Português para Inglês
           option(value='mt-arar-enus' selected=sid=='mt-arar-enus') Arabic to English
   
-
   script(src='/socket.io/socket.io.js')
   script(src='/js/jquery.js')
   script(src='/js/chat.js')

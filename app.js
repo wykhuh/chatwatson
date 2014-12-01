@@ -56,15 +56,16 @@ console.log('service_password = ' + new Array(service_password.length).join("X")
 
 var auth = 'Basic ' + new Buffer(service_username + ':' + service_password).toString('base64');
 
-
+// routes
 
 app.get('/', function(req, res){
   // res.sendfile('index.html');
-  res.render('index');
+  res.render('chat');
 });
 
+
 app.get('/about', function(req, res){
-  res.render('about')
+  res.render('intro')
 })
 
 // Sends the message to IBM Watson API
@@ -104,7 +105,7 @@ app.post('/api/watson', function(req, res){
     result.on('end', function() {
       // add the response to the request so we can show the text and the response in the template
       request_data.translation = responseString;
-      console.log('request',request_data);
+      console.log('app ibm',request_data);
       io.emit('translate message', {name: req.body.name, text: request_data.translation});
 
       res.end();
@@ -122,13 +123,62 @@ app.post('/api/watson', function(req, res){
 
 });
 
+// chatroom
 
-io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+// usernames which are currently connected to the chat
+var usernames = {};
+var numUsers = 0;
+
+
+io.on('connection', function (socket) {
+  var addedUser = false;
+
+  // when the client emits 'new message', this listens and executes
+  socket.on('new message', function (data) {
+    console.log('app new', data, socket.username);
+
+    // we tell the client to execute 'new message'
+    socket.broadcast.emit('new message', {
+      username: socket.username,
+      text: data.text
+    });
+  });
+
+  // // when the client emits 'add user', this listens and executes
+  // socket.on('add user', function (username) {
+  //   // we store the username in the socket session for this client
+  //   socket.username = username;
+  //   // add the client's username to the global list
+  //   usernames[username] = username;
+  //   ++numUsers;
+  //   addedUser = true;
+  //   socket.emit('login', {
+  //     numUsers: numUsers
+  //   });
+  //   // echo globally (all clients) that a person has connected
+  //   socket.broadcast.emit('user joined', {
+  //     username: socket.username,
+  //     numUsers: numUsers
+  //   });
+  // });
+
+
+
+  // when the user disconnects.. perform this
+  socket.on('disconnect', function () {
+    // remove the username from global usernames list
+    if (addedUser) {
+      delete usernames[socket.username];
+      --numUsers;
+
+      // echo globally that this client has left
+      socket.broadcast.emit('user left', {
+        username: socket.username,
+        numUsers: numUsers
+      });
+    }
   });
 });
-
 
 // The IP address of the Cloud Foundry DEA (Droplet Execution Agent) that hosts this application:
 var host = (process.env.VCAP_APP_HOST || 'localhost');
