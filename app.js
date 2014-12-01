@@ -136,8 +136,6 @@ io.on('connection', function (socket) {
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', function (data) {
-    console.log('app new', data, socket.username);
-
     // we tell the client to execute 'new message'
     io.emit('new message', {
       username: socket.username,

@@ -35,7 +35,6 @@ $(function() {
   // when client recieves a 'translate' event via sockets, add the translated 
   // message to the DOM
   socket.on('translate message', function (data) {
-    console.log('trs', data)
     chat.addMessage(data, 'translate');
   });
 
