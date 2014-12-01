@@ -4,11 +4,13 @@ extends ./layout.jade
 block content
   div.content
     div.chatArea
-      ul#messages
-
-      form
-        input#m(type="text", required="true")
-        button#send Send
+      div.usersArea
+        h2 People
+        ul.users
+      ul.messages
+      form.messageForm
+        input.messageInput(type="text", required="true", placeholder="Write a message")
+        button.submitMessage Send
         
         select#language(name='language') 
           option(value='mt-enus-eses' selected=sid=='mt-enus-eses') English to Spanish
@@ -18,9 +20,24 @@ block content
           option(value='mt-enus-ptbr' selected=sid=='mt-enus-ptbr') English to Portuguese
           option(value='mt-ptbr-enus' selected=sid=='mt-ptbr-enus') Português para Inglês
           option(value='mt-arar-enus' selected=sid=='mt-arar-enus') Arabic to English
-  
+    
+    div.loginArea
+      p Chat Translator. You provide the message, we provide the translation.
+      p Don't let a language barrier be a barrier to communication.
+      
+      h2 Instructions
+      ol
+        li Enter in username
+        li Select your language choice
+        li Post your message
+        li A translation of your message will displayed
+       
+      form.loginForm
+        label Username: 
+        input.usernameInput(type="text", maxlength="20", placeholder="Enter username")
+        button.submitUsername Submit
 
-  script(src='/js/socket.io.js')
+  script(src='/socket.io/socket.io.js')
   script(src='/js/jquery.js')
   script(src='/js/chat.js')
   script(src='/js/main.js')

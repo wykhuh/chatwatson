@@ -17,14 +17,24 @@ h1, h2 {
   color: #466BB0;
 }
 
+/* header */
+
+nav h1 {
+  display: inline-block;
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0; 
+}
+
 nav {
   position: relative;
   z-index: 10;
   border-bottom: 1px solid #ccc;  
+  background: white;
 }
 
 nav ul {
-  max-width: 40rem;
+  max-width: 55rem;
   margin: 0  auto;
   padding: 0;
 }
@@ -46,13 +56,43 @@ nav li a:hover {
   text-decoration: underline; 
 }
 
+/* generic */
 
+button{
+  padding: .5rem;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+
+button:hover {
+  border-radius: 0px;
+}
+
+
+/* content */
 .content {
-  max-width: 40rem;
+  max-width: 55rem;
   margin: 0  auto  ;
 }
 
+/* chat page */
+
+.usersArea {
+  margin: 1rem 0 1rem 1rem;
+  width: 13rem;
+  float: right;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.usersArea h2 {
+  text-align: center;
+  margin: 0;
+}
+
 .chatArea{
+  width: 55rem;
   position: absolute;
   top: 0;
   height: 100%;
@@ -60,7 +100,7 @@ nav li a:hover {
   padding-top: 3.5rem; 
 }
 
-#messages {
+.messages {
   width: 40rem;
   height: 100%;
   overflow-y: scroll;
@@ -68,19 +108,18 @@ nav li a:hover {
   margin:0;
 }
 
-
-#messages li {
+.messages li {
   padding: 5px 10px;
   list-style: none;
 }
 
-#messages li.original {
+.messages li.original {
   border: 1px solid #ccc;
   border-radius: 5px 5px 0 0;
 }
 
 
-#messages li.translate {
+.messages li.translate {
   border: 1px solid #ccc;
   border-top: 0;
   border-radius: 0 0 5px 5px;
@@ -92,9 +131,10 @@ nav li a:hover {
 }
 
 
-form {
-  width: 100%;
-  max-width: 90rem;
+
+.messageForm {
+  width: 40rem;
+  left: 0;
   bottom: 0;
   height: 6rem;
   outline: none;
@@ -103,23 +143,38 @@ form {
   background: #ddd;
 }
 
-form input { 
+.messageForm input { 
   margin: .5rem 0 0 0;
   padding: .5rem;
   width: 80%;
 }
 
-form button {
-  padding: .5rem;
+.messageForm button {
   color : white;
   margin-left: 2%;
   width: 17%;
   background: #466BB0;
-  border: none;
-  border-radius: 10px;
 }
 
-form button:hover {
-  border-radius: 0px;
+/* home page */
+
+.loginForm {
+  background: #ddd;
+  width:22rem;
+  padding: .5rem 1rem;
 }
+
+.loginForm input { 
+  margin: .5rem 0 0 0;
+  padding: .5rem;
+  width: 10rem;
+}
+
+.loginForm button {
+  color : white;
+  margin-left: 2%;
+  background: #466BB0;
+}
+
+
 

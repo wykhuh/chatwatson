@@ -1,8 +1,8 @@
 # Chat with Watson
 
-A chat app that translate messages into another language using IBM's Watson machine translator.
+A chat app that translates messages into another language using IBM's Watson Machine Translation.
 
-Tech used: Node/Express, IBM's Watson machine translator, Socket.io, Jade
+Tech used: IBM BlueMix, IBM Watson Machine Translation, Socket.io, jQuery, Node/Express, Jade
 
 # Install
 

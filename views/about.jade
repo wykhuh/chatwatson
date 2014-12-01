@@ -1,0 +1,31 @@
+//- about.jade
+
+extends ./layout.jade
+
+block content
+  div.content
+    h1 Chat with Watson
+    p.
+      A chat app that automatically translates the messages into another language. 
+    
+    h2 How it works
+    p.
+      When users enter the app, they select a language preference. When users send a message,
+      IBMs Watson Machine Translation translates the message into another language based on the user's language preference. 
+      Both the original message and the translated message are displayed.
+    
+    h2 How it works (techy version)
+    p.
+      When a user presses 'Send', the app uses Socket.io to send the  message to all the other users. 
+      The app also sends the message to the IBM Watson Machine Translation API. Once 
+      the server recieves a response from Watson, the app uses Socket.io to send the translated message
+      to all the users.
+
+    h2 Use cases
+    p.
+      People who don't speak the same language can use the app to communicate with each other. 
+    p.
+      People who are learning another language can use the app to chat with native speakers in order to improve their language skills. 
+
+    h2 Tech used
+    p IBM BlueMix, IBM Watson Machine Translation, Socket.io, jQuery, Node/Express, Jade
