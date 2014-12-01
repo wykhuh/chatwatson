@@ -17,6 +17,8 @@ h1, h2 {
   color: #466BB0;
 }
 
+/* header */
+
 nav h1 {
   display: inline-block;
   font-size: 1.5em;
@@ -28,10 +30,11 @@ nav {
   position: relative;
   z-index: 10;
   border-bottom: 1px solid #ccc;  
+  background: white;
 }
 
 nav ul {
-  max-width: 40rem;
+  max-width: 55rem;
   margin: 0  auto;
   padding: 0;
 }
@@ -53,18 +56,43 @@ nav li a:hover {
   text-decoration: underline; 
 }
 
+/* generic */
 
+button{
+  padding: .5rem;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+
+button:hover {
+  border-radius: 0px;
+}
+
+
+/* content */
 .content {
-  max-width: 40rem;
+  max-width: 55rem;
   margin: 0  auto  ;
 }
 
-.loginForm {
+/* chat page */
 
+.usersArea {
+  margin: 1rem 0 1rem 1rem;
+  width: 13rem;
+  float: right;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
+.usersArea h2 {
+  text-align: center;
+  margin: 0;
+}
 
 .chatArea{
+  width: 55rem;
   position: absolute;
   top: 0;
   height: 100%;
@@ -79,7 +107,6 @@ nav li a:hover {
   padding: 10px 20px 10px 20px;
   margin:0;
 }
-
 
 .messages li {
   padding: 5px 10px;
@@ -103,20 +130,11 @@ nav li a:hover {
   font-weight: bold;
 }
 
-button{
-  padding: .5rem;
-  border: none;
-  outline: none;
-  border-radius: 10px;
-}
 
-button:hover {
-  border-radius: 0px;
-}
 
 .messageForm {
-  width: 100%;
-  max-width: 90rem;
+  width: 40rem;
+  left: 0;
   bottom: 0;
   height: 6rem;
   outline: none;
@@ -138,9 +156,11 @@ button:hover {
   background: #466BB0;
 }
 
+/* home page */
+
 .loginForm {
   background: #ddd;
-  width:60%;
+  width:22rem;
   padding: .5rem 1rem;
 }
 

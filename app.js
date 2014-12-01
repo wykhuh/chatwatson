@@ -106,8 +106,8 @@ app.post('/api/watson', function(req, res){
     result.on('end', function() {
       // add the response to the request so we can show the text and the response in the template
       request_data.translation = responseString;
-      console.log('app ibm',request_data);
-      io.emit('translate message', {name: req.body.name, text: request_data.translation});
+      console.log('data from ibm',request_data);
+      io.emit('translate message', {ll: 'dd', username: req.body.username, text: request_data.translation});
 
       res.end();
     });
@@ -154,9 +154,14 @@ io.on('connection', function (socket) {
     ++numUsers;
     addedUser = true;
     
-    socket.emit('login', { numUsers: numUsers });
+    // send event to person who logged in
+    socket.emit('login', {
+      username: socket.username,
+      numUsers: numUsers,
+      usernames: usernames
+    });
 
-    // echo globally (all clients) that a person has connected
+    // send event toall users except the person who ligged in
     socket.broadcast.emit('user joined', {
       username: socket.username,
       numUsers: numUsers,
