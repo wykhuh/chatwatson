@@ -5,13 +5,11 @@ var service_url = config.service_url;
 var service_username = config.service_username;
 var service_password = config.service_password;
 
-// There are many useful environment variables available in process.env.
 // VCAP_APPLICATION contains useful information about a deployed application.
 var appInfo = JSON.parse(process.env.VCAP_APPLICATION || "{}");
 
 // VCAP_SERVICES contains all the credentials of services bound to
-// this application. For details of its content, please refer to
-// the document or sample of each service.
+// this application. 
 if (process.env.VCAP_SERVICES) {
   console.log('Parsing VCAP_SERVICES');
   var services = JSON.parse(process.env.VCAP_SERVICES);
@@ -35,4 +33,9 @@ console.log('service_url = ' + service_url);
 console.log('service_username = ' + service_username);
 console.log('service_password = ' + new Array(service_password.length).join("X"));
 
-var auth = 'Basic ' + new Buffer(service_username + ':' + service_password).toString('base64');
+module.exports = {
+  service_url: service_url,
+  service_username: service_username,
+  service_password: service_password,
+  auth: 'Basic ' + new Buffer(service_username + ':' + service_password).toString('base64')
+};

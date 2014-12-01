@@ -1,26 +1,30 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var url = require('url');
-
+var express = require('express'),
+  config = require('./config/config'),
+  glob = require('glob'),
+  mongoose = require('mongoose');
 
 var app = express();
 
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+mongoose.connect(config.db);
+var db = mongoose.connection;
+db.on('error', function () {
+  throw new Error('unable to connect to database at ' + config.db);
+});
 
-var routes = require('./routes/index');
-var api = require('./routes/api');
+var models = glob.sync(config.root + '/app/models/*.js');
+models.forEach(function (model) {
+  require(model);
+});
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+require('./config/express')(app, config);
 
-app.use(express.static(__dirname + '/public')); //setup static public directory
-app.set('view engine', 'jade');
 
-app.use('/', routes);
-// app.use('/api', api);
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+
+server.listen(config.port, function () {
+  console.log('Server listening at port %d', config.port);
+});
 
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
@@ -28,10 +32,7 @@ io.on('connection', function(socket){
   });
 });
 
-
-// The IP address of the Cloud Foundry DEA (Droplet Execution Agent) that hosts this application:
-var host = (process.env.VCAP_APP_HOST || 'localhost');
-// The port on the DEA for communication with the application:
-var port = (process.env.VCAP_APP_PORT || 3000);
-// Start server
-http.listen(port, host);
+module.exports = {
+  server: server
+  // io: io
+}

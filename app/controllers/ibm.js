@@ -1,12 +1,31 @@
-var express = require('express');
+var express = require('express'),
+  router = express.Router(),
+  https = require('https'),
+  url = require('url'),
+  querystring = require('querystring'),
+  io = require('../../app'),
+  ibm =require('../../config/ibm');
+
+console.log(io)
+
 var app = express();
+// var server = require('http').createServer(app);
+// var io = require('socket.io')(server);
+
+module.exports = function (app) {
+  app.use('/api/watson', router);
+};
+
 
 // Sends the message to IBM Watson API
-app.post('/api/watson', function(req, res){
+router.post('/', function(req, res){
+  // res.send('test')
 
   if(!req.body.text || !req.body.sid){
-    return;
+    res.send('text or language not sent');
   }
+
+
 
   var request_data = { 
     'txt': req.body.text,
@@ -14,8 +33,10 @@ app.post('/api/watson', function(req, res){
     'rt':'text' // return type e.g. json, text or xml
   };
   
-  var parts = url.parse(service_url);
-  // create the request options to POST our question to Watson
+  var parts = url.parse(ibm.service_url);
+
+
+  //create the request options to POST our question to Watson
   var options = { host: parts.hostname,
     port: parts.port,
     path: parts.pathname,
@@ -23,7 +44,8 @@ app.post('/api/watson', function(req, res){
     headers: {
       'Content-Type'  :'application/x-www-form-urlencoded', // only content type supported
       'X-synctimeout' : '30',
-      'Authorization' :  auth }
+      'Authorization' :  ibm.auth
+    }
   };
 
   // Create a request to POST to Watson
@@ -36,11 +58,11 @@ app.post('/api/watson', function(req, res){
     });
     
     result.on('end', function() {
-      // add the response to the request so we can show the text and the response in the template
+      // add the response to the request so we can show the text 
+      // and the response in the template
       request_data.translation = responseString;
       console.log('request',request_data);
-      io.emit('translate message', {name: req.body.name, text: request_data.translation});
-
+      // io.emit('translate message', {name: req.body.name, text: request_data.translation});
       res.end();
     });
 
