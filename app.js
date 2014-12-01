@@ -7,7 +7,7 @@ var io = require('socket.io')(http);
 var https = require('https');
 var url = require('url');
 var querystring = require('querystring');
-var config = require('./local.env');
+var config = require('./config/local.env');
 
 app.use(express.errorHandler());
 app.use(express.urlencoded()); // to support URL-encoded bodies
