@@ -17,27 +17,10 @@ $(function() {
 
   // user submits a message
   $('form').submit(function(event){
-    // event.preventDefault();
-    sendMessage();
+    event.preventDefault();
+    chat.sendMessage();
     return false;
-
   });
-
-
-  var sendMessage = function() {
-
-    var message =  $messageInput.val();
-    console.log('main send', message, username)
-
-    // emit an event to all other users via sockets
-    socket.emit('new message', {text: message, name: username});
-
-    // send the message to IBM Watson via POST to api
-    //chat.sendToServer({text: message, name: username, sid: chat.sid });
-
-    // clears the input field
-    $messageInput.val('');
-  };
 
 
   // // when user logins, emit 'login' event

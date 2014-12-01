@@ -130,6 +130,8 @@ var usernames = {};
 var numUsers = 0;
 
 
+
+
 io.on('connection', function (socket) {
   var addedUser = false;
 
@@ -138,7 +140,7 @@ io.on('connection', function (socket) {
     console.log('app new', data, socket.username);
 
     // we tell the client to execute 'new message'
-    socket.broadcast.emit('new message', {
+    io.emit('new message', {
       username: socket.username,
       text: data.text
     });
