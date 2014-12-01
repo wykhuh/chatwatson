@@ -92,6 +92,7 @@ button:hover {
 }
 
 .chatArea{
+  display: none;
   width: 55rem;
   position: absolute;
   top: 0;
