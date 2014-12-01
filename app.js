@@ -66,7 +66,7 @@ app.get('/', function(req, res){
 
 
 app.get('/about', function(req, res){
-  res.render('intro')
+  res.render('about')
 })
 
 // Sends the message to IBM Watson API
@@ -159,10 +159,10 @@ io.on('connection', function (socket) {
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
       username: socket.username,
-      numUsers: numUsers
+      numUsers: numUsers,
+      usernames: usernames
     });
   });
-
 
 
   // when the user disconnects.. perform this
@@ -175,7 +175,8 @@ io.on('connection', function (socket) {
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
-        numUsers: numUsers
+        numUsers: numUsers,
+        usernames: usernames
       });
     }
   });

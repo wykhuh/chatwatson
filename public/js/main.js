@@ -50,11 +50,15 @@ $(function() {
 
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', function (data) {
+     console.log('main login', data);
+
     chat.log(data.username + ' joined the chat');
   });
 
   // Whenever the server emits 'user left', log it in the chat body
   socket.on('user left', function (data) {
+      console.log('main login', data);
+
     chat.log(data.username + ' left the chat');
   });
 

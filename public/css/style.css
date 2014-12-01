@@ -20,7 +20,8 @@ h1, h2 {
 nav h1 {
   display: inline-block;
   font-size: 1.5em;
-  margin: 0; 
+  margin: 0;
+  padding: 0; 
 }
 
 nav {
@@ -102,8 +103,18 @@ nav li a:hover {
   font-weight: bold;
 }
 
+button{
+  padding: .5rem;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
 
-form.messageForm {
+button:hover {
+  border-radius: 0px;
+}
+
+.messageForm {
   width: 100%;
   max-width: 90rem;
   bottom: 0;
@@ -114,24 +125,36 @@ form.messageForm {
   background: #ddd;
 }
 
-form input { 
+.messageForm input { 
   margin: .5rem 0 0 0;
   padding: .5rem;
   width: 80%;
 }
 
-form button {
-  padding: .5rem;
+.messageForm button {
   color : white;
   margin-left: 2%;
   width: 17%;
   background: #466BB0;
-  border: none;
-  outline: none;
-  border-radius: 10px;
 }
 
-form button:hover {
-  border-radius: 0px;
+.loginForm {
+  background: #ddd;
+  width:60%;
+  padding: .5rem 1rem;
 }
+
+.loginForm input { 
+  margin: .5rem 0 0 0;
+  padding: .5rem;
+  width: 10rem;
+}
+
+.loginForm button {
+  color : white;
+  margin-left: 2%;
+  background: #466BB0;
+}
+
+
 
